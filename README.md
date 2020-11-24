@@ -13,3 +13,4 @@
 | Lab | Solution |
 | - | - |
 | Intro | [Basic shell commands solution](intro) |
+| Processes | [Mini-shell solution](fork-exec-pipe) |
