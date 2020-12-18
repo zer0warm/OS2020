@@ -14,3 +14,4 @@
 | - | - |
 | Intro | [Basic shell commands solution](intro) |
 | Processes | [Mini-shell solution](fork-exec-pipe) |
+| Virtual memory | [VM management solution](memory) |
