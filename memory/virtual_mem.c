@@ -31,7 +31,8 @@ int main(void)
     printf("access pages as in lecture (1,2,3,4,1,2,5,1,2,3,4,5,2,3)\n");
     int serie[14] = { 0, 1, 2, 3, 0, 1, 4, 0, 1, 2, 3, 4, 1, 2 };
     for (int i = 0; i < 14; i++) {
-        printf("read access page %d : %s\n", serie[i], memory_read(serie[i]));
+        printf("read access page %d:\n", serie[i]);
+        printf("-- content: %s\n", memory_read(serie[i]));
     }
     printf("completed\n");
 
@@ -86,8 +87,12 @@ int page_fault(int npage)
 {
     int mempage = memory_alloc();
 
+    printf("-- page_fault: %d\n", npage);
+    printf("-- memory_alloc: %d\n", mempage);
+
     if (mempage == -1) {
         mempage = lru_select();
+        printf("-- lru_select: %d\n", mempage);
         memcpy(Disk[Memory[mempage].npage], Memory[mempage].content, PAGE_SIZE);
         PageTable[Memory[mempage].npage] = -1;
     }
