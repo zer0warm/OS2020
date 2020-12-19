@@ -65,6 +65,8 @@ char *memory_read(int npage)
         page_fault(npage);
     }
 
+    Memory[PageTable[npage]].date = Date++;
+
     return Memory[PageTable[npage]].content;
 }
 
@@ -88,7 +90,6 @@ void page_fault(int npage)
         PageTable[Memory[mempage].npage] = -1;
     }
     Memory[mempage].npage = npage;
-    Memory[mempage].date = Date++;
     memcpy(Memory[mempage].content, Disk[npage], PAGE_SIZE);
     PageTable[npage] = mempage;
 }
