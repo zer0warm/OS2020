@@ -20,7 +20,7 @@ int Date = 1;
 void init();
 char *memory_read(int npage);
 int memory_alloc();
-void page_fault(int npage);
+int page_fault(int npage);
 int lru_select();
 
 int main(void)
@@ -62,12 +62,12 @@ char *memory_read(int npage)
     int mempage = PageTable[npage];
 
     if (mempage == -1) {
-        page_fault(npage);
+        mempage = page_fault(npage);
     }
 
-    Memory[PageTable[npage]].date = Date++;
+    Memory[mempage].date = Date++;
 
-    return Memory[PageTable[npage]].content;
+    return Memory[mempage].content;
 }
 
 int memory_alloc(void)
@@ -81,7 +81,7 @@ int memory_alloc(void)
     return -1;
 }
 
-void page_fault(int npage)
+int page_fault(int npage)
 {
     int mempage = memory_alloc();
     if (mempage == -1) {
@@ -92,6 +92,7 @@ void page_fault(int npage)
     Memory[mempage].npage = npage;
     memcpy(Memory[mempage].content, Disk[npage], PAGE_SIZE);
     PageTable[npage] = mempage;
+    return mempage;
 }
 
 int lru_select(void)
