@@ -78,20 +78,24 @@ int memory_alloc(void)
             return i;
         }
     }
+
     return -1;
 }
 
 int page_fault(int npage)
 {
     int mempage = memory_alloc();
+
     if (mempage == -1) {
         mempage = lru_select();
         memcpy(Disk[Memory[mempage].npage], Memory[mempage].content, PAGE_SIZE);
         PageTable[Memory[mempage].npage] = -1;
     }
+
     Memory[mempage].npage = npage;
     memcpy(Memory[mempage].content, Disk[npage], PAGE_SIZE);
     PageTable[npage] = mempage;
+
     return mempage;
 }
 
@@ -99,11 +103,13 @@ int lru_select(void)
 {
     int minDate = 99999;
     int mempage = -1;
+
     for (int i = 0; i < NB_MEM_PAGE; i++) {
         if (Memory[i].date < minDate) {
             minDate = Memory[i].date;
             mempage = i;
         }
     }
+
     return mempage;
 }
