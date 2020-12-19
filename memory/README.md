@@ -1,7 +1,8 @@
 # Implement a small simulation of virtual memory management
 
-## Given
-The labwork includes a template file, [template_mem.c](template_mem.c).
+## Summary
+Template file: [template_mem.c](template_mem.c)
+Solution: [virtual_mem.c](virtual_mem.c) (This README is about this file)
 
 ## Compilation
 The code was compiled with:
@@ -45,29 +46,73 @@ struct memory {
 // virtual_mem.c
 #include <stdbool.h>
 ```
+
+3. Make `page_fault()` returns the `mempage` it requests (commit [e2261a37186af0e793eb0832567a97342414a298](https://github.com/zer0warm/OS2020/commit/e2261a37186af0e793eb0832567a97342414a298)).
+```c
+// template_mem.c
+void page_fault(int npage);
+
+// virtual_mem.c
+int page_fault(int npage);
+```
+
 Other changes are minors.
 
 ## Output
 ```
-./virtual_mem.out 
+./virtual_mem.out
 initialization
 access pages as in lecture (1,2,3,4,1,2,5,1,2,3,4,5,2,3)
-read access page 0 : page0
-read access page 1 : page1
-read access page 2 : page2
-read access page 3 : page3
-read access page 0 : page0
-read access page 1 : page1
-read access page 4 : page4
-read access page 0 : page0
-read access page 1 : page1
-read access page 2 : page2
-read access page 3 : page3
-read access page 4 : page4
-read access page 1 : page1
-read access page 2 : page2
+read access page 0:
+-- page_fault: 0
+-- memory_alloc: 0
+-- content: page0
+read access page 1:
+-- page_fault: 1
+-- memory_alloc: 1
+-- content: page1
+read access page 2:
+-- page_fault: 2
+-- memory_alloc: 2
+-- content: page2
+read access page 3:
+-- page_fault: 3
+-- memory_alloc: 3
+-- content: page3
+read access page 0:
+-- content: page0
+read access page 1:
+-- content: page1
+read access page 4:
+-- page_fault: 4
+-- memory_alloc: -1
+-- lru_select: 2
+-- content: page4
+read access page 0:
+-- content: page0
+read access page 1:
+-- content: page1
+read access page 2:
+-- page_fault: 2
+-- memory_alloc: -1
+-- lru_select: 3
+-- content: page2
+read access page 3:
+-- page_fault: 3
+-- memory_alloc: -1
+-- lru_select: 2
+-- content: page3
+read access page 4:
+-- page_fault: 4
+-- memory_alloc: -1
+-- lru_select: 0
+-- content: page4
+read access page 1:
+-- content: page1
+read access page 2:
+-- content: page2
 completed
 print memory_state
-3 4 1 2 
+4 1 3 2 
 completed
 ```
