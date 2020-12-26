@@ -1,8 +1,8 @@
 # Implement a small simulation of virtual memory management
 
 ## Summary
-Template file: [template_mem.c](template_mem.c)
-Solution: [virtual_mem.c](virtual_mem.c) (This README is about this file)
+* Template file: [template_mem.c](template_mem.c)
+* Solution: [virtual_mem.c](virtual_mem.c) (This README is about this file)
 
 ## Compilation
 The code was compiled with:
@@ -13,9 +13,10 @@ gcc -Wall -Wextra -std=c11  virtual_mem.c  -o virtual_mem.out
 
 ## Remarks
 There are small modifications from the template code to implement this task.
-1. Merge `Memory` and `MemState` to one struct.
-   * This change makes it easier to keep track of memory content and its state. 
-   * `free` is also changed to `isFree`, because `free` sounds confusing and collides itself with a `stdlib` function about a related topic.
+
+#### 1. Merge `Memory` and `MemState` to one struct.
+* This change makes it easier to keep track of memory content and its state. 
+* `free` is also changed to `isFree`, because `free` sounds confusing and collides itself with a `stdlib` function about a related topic.
 ```c
 // template_mem.c
 char Memory[NB_MEM_PAGE][PAGE_SIZE];
@@ -34,9 +35,9 @@ struct memory {
 } Memory[NB_MEM_PAGE];
 ```
 
-2. `#include <stdbool.h>`
-    * It's included in the C standard, so there's no reason to keep it back.
-    * It's also dangerous to simply re-define basic data types.
+#### 2. `#include <stdbool.h>`
+* It's included in the C standard, so there's no reason to keep it back.
+* It's also dangerous to simply re-define basic data types.
 ```c
 // template_mem.c
 #define boolean int
@@ -47,7 +48,7 @@ struct memory {
 #include <stdbool.h>
 ```
 
-3. Make `page_fault()` returns the `mempage` it requests (commit [e2261a37186af0e793eb0832567a97342414a298](https://github.com/zer0warm/OS2020/commit/e2261a37186af0e793eb0832567a97342414a298)).
+#### 3. Make `page_fault()` returns the `mempage` it requests (commit [e2261a37186af0e793eb0832567a97342414a298](https://github.com/zer0warm/OS2020/commit/e2261a37186af0e793eb0832567a97342414a298)).
 ```c
 // template_mem.c
 void page_fault(int npage);
