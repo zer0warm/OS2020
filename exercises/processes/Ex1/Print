@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Printing..."
+
+i=1
+while read line; do
+    echo "Line $i: $line"
+    i=$((i + 1))
+done
+
+echo "Finished."
