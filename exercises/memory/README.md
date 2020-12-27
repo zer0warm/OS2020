@@ -2,6 +2,54 @@
 
 ## Solutions
 
+### Exercise 1
+* Main: See below
+* Supporting files: None
+* How to run: not run-able because these functions (listed below) are assumed to have their implementations available.
+```c
+mem_addr_t PageTable[NB_PAGE];
+disk_addr_t SwapTable[NB_PAGE];
+
+// have to be called when a memory error is detected (??)
+void memory_error();
+// returns the address of the page in memory, null if memory is full
+mem_addr_t memory_alloc();
+// return the page number in PageTable, the address of the page is in memory
+int lru_select();
+// allocate a page in the swap, return the address of page on disk
+disk_addr_t swap_alloc();
+// free a page from swap
+void swap_free(disk_addr_t disk_page);
+// load a page from swap to a page in memory
+void load_page(mem_addr_t mem_page, disk_addr_t disk_page);
+// store a page from memory into a page in swap
+void store_page(mem_addr_t mem_page, disk_addr_t disk_page);
+
+// to be implemented, invoked whenever PageTable[npage] == NULL
+void page_fault(int npage)
+{
+    if (SwapTable[npage]) {
+        memory_error();
+    }
+
+    mem_addr_t mem_page = memory_alloc();
+
+    if (mem_page == NULL) {
+        int repl_npage = lru_select();
+        mem_page = PageTable[repl_npage];
+        disk_addr_t swap_page = swap_alloc();
+        store_page(mem_page, swap_page);
+        SwapTable[repl_npage] = swap_page;
+        PageTable[repl_npage] = NULL;
+    }
+
+    load_page(mem_page, SwapTable[npage]);
+    swap_free(SwapTable[npage]);
+    SwapTable[npage] = NULL;
+    PageTable[npage] = mem_page;
+}
+```
+
 ### Exercise 2
 * Main file: See below
 * Supporting files: None
