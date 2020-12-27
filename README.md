@@ -10,8 +10,14 @@
 5. Le Thanh Hung &lt;hunglt.bi10-074@st.usth.edu.vn&gt;
 
 ### Solutions
+#### Labs
 | Lab | Solution |
 | - | - |
 | Intro | [Basic shell commands solution](intro) |
 | Processes | [Mini-shell solution](fork-exec-pipe) |
 | Virtual memory | [VM management solution](memory) |
+
+#### Exercises
+| Exercise | Solution |
+| - | - |
+| Processes | [Processes exercises solutions](exercises/processes) |
