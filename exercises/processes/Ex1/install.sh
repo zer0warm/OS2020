@@ -6,3 +6,4 @@ echo "Creating $HOME/bin if not exists..."
 mkdir -p $HOME/bin
 echo "Copying \`\`gendoc'' and \`\`Print'' scripts to $HOME/bin..."
 cp gendoc Print $HOME/bin
+chmod +x $HOME/bin/{gendoc,Print}
