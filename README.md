@@ -21,3 +21,4 @@
 | Exercise | Solution |
 | - | - |
 | Processes | [Processes exercises solutions](exercises/processes) |
+| Memory | [Memory exercises solutions](exercises/memory) |
